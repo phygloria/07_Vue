@@ -52,9 +52,7 @@
             <div>
                 <button @click="handlerState">{{state?"등록하기":"조회하기"}}</button>
             </div>
-            <div v-if="state">
-              
-            </div>
+            
             <div class="inputContainer">
                 <select v-model="type" @change="check">
                     <option value="인물등록">인물등록</option>
@@ -74,7 +72,7 @@
                     </div>
                 </div>
 
-                <div v-else="type == '스킬등록'" class="inputBox">
+                <div v-if="type == '스킬등록'" class="inputBox">
                     
                     <label>스킬 : </label><input v-model="skillInfo.skill"/>
                     <br>
@@ -201,42 +199,9 @@
                     }
                 }
 
-                function handlerState() {
-                        state.value = !state.value
-                }
+                
 
-                function pushHandler() {
-                    if (type.value == "charater") {
-                        characterInfo.id = character.length + 1;
-                            character.push({...characterInfo});
-                            
-                            Object.assign(characterInfo,{
-                                id: 0,
-                                name: "",
-                                introduction: "",
-                                img: ""
-                            });
-                            
-                           
-                    } else if (type.value == "skill") {
-                        skillInfo.id = skills.length + 1;
-                        skillInfo.list = skillInfo.list.split(",");
-                        skills.push({...skillInfo});
-
-                        Object.assign(skillInfo,{
-                            id: 0,
-                            skill: "",
-                            list: "",
-                            introduction: "",
-                            imgs: []
-                        });
-                        console.log(skills);
-                    }                        
-        
-                }
-
-
-
+            
 
                 return {
                     jsonData,
@@ -249,7 +214,7 @@
                     info,
                     imgs,
                     
-                    handlerState,
+                    
                     pushHandler
                 };
             }
