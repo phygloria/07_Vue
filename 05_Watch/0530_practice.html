@@ -45,49 +45,40 @@
 
     
      <div id="app">
-        <input text="text" v-model="label"/>        
-        <img :src= "emojis" width="100" height="100"/>
-        
-    </div>
-    
-     <script>
-       const { createApp, ref, reactive, watch,  watchEffect} = Vue;
- 
-       createApp({
-         setup() {
-           // input의 값을 입력기 위함
-           const label = ref();
-           // 이미지를 보여주기 위함
-           const emoji = ref();
-           // image 목록을 받아오기 위함
-           let emojis = reactive({});
- 
-           // 초기 데이터 목록을 받아오기  
-           watchEffect(async () => {
-            const response = await fetch("https://api.github.com/emojis");
-            const data = await response.json();
-            Object.assign(emojis, data); // reactive 객체에 데이터 할당
+      <input v-model="label" placeholder="Enter label"/>
+      <img :src="emoji" width="100" height="100"/>
+     </div>
 
-             console.log(emojis["100"]);
-           });
+      <script>
+          const { createApp, ref, reactive, watch, watchEffect } = Vue;
 
-           watch(label, (newVal) => {
-                const url = emojis[newVal]; // emoji 목록에서 입력된 값과 일치하는 URL 찾기
-                emoji.value = url;// URL이 존재하면 할당, 아니면 빈 문자열
+          createApp({
+              setup() {
+                  const label = ref("");
+                  const emoji = ref("");
+                  const emojis = reactive({});
 
-                console.log(emojis)
-           });
+                  watchEffect(async () => {
+                      const response = await fetch("https://api.github.com/emojis");
+                      const data = await response.json();
+                      Object.assign(emojis, data); // reactive 객체에 데이터 할당
+                      console.log(emojis["100"]);
+                  });
 
+                  watch(label, (newVal) => {
+                      const url = emojis[newVal]; // emoji 목록에서 입력된 값과 일치하는 URL 찾기
+                      emoji.value = url;// URL이 존재하면 할당, 아니면 빈 문자열
+                  });
 
- 
-           return {
-             label,
-             emoji,
-             emojis
-           };
-         }
-       }).mount("#app");
-     </script>
+                  return {
+                      label,
+                      emojis,
+                      emoji
+                  };
+              }
+          }).mount("#app");
+      </script>
+
 </body>
     
 </html>
