@@ -16,7 +16,7 @@
         <EmojiNewsChild>
             <template #[EmojiName]>
                 {{ EmojiName.img }}
-                <img class="img"  src="https://i.pinimg.com/564x/b2/0e/39/b20e393c1ea3aea94537de3f47a16400.jpg"/>
+                <img class="img" src="https://i.pinimg.com/564x/b2/0e/39/b20e393c1ea3aea94537de3f47a16400.jpg"/>
             </template>            
         </EmojiNewsChild>
     </div>
@@ -24,9 +24,7 @@
 </template>
 
 <style scoped>
-.img{
-    width: 200px; height: 200px;
-}
+
     .parentsContainer{
         /* display: flex; */
         align-items: center;
@@ -35,6 +33,10 @@
         height: 200px;
         border: 1px solid;  
          
+    }
+
+    .img{
+    width: 200px; height: 200px;
     }
     
 
